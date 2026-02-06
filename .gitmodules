@@ -1,0 +1,6 @@
+[submodule "dotenv-c"]
+	path = dotenv-c
+	url = https://github.com/Isty001/dotenv-c.git
+[submodule "libb64"]
+	path = libb64
+	url = https://github.com/libb64/libb64.git
