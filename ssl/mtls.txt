@@ -1,0 +1,39 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: ST=ASS, L=i am running out of ideas, O=The Company for Stupid Ridiculous Punishments, OU=Bullshit certs, CN=wtf is a FQDN, emailAddress=apparently these fields can have any bullshit value as long as i
+        Validity
+            Not Before: Jan 25 00:49:14 2026 GMT
+            Not After : Jan 25 00:49:14 2027 GMT
+        Subject: O=cow ltd., OU=tt, CN=apol.gingham, emailAddress=ICAgICAgICAgICAKfF8gIF8ufHwgXyAKfF8pKF98fHxfPiAKICAgICAgICAgICAK
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:
+                    ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:
+                    ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:
+                    ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:
+                    ██:██:██:██:██
+                ASN1 OID: ██████████
+                NIST CURVE: █████
+        X509v3 extensions:
+            X509v3 Basic Constraints:
+                CA:FALSE
+            X509v3 Key Usage:
+                Digital Signature
+            X509v3 Extended Key Usage:
+                TLS Web Client Authentication
+            X509v3 Subject Key Identifier:
+                ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██
+            X509v3 Authority Key Identifier:
+                ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██
+    Signature Algorithm: █████████████████
+    Signature Value:
+        ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:
+        ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:
+        ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:
+        ██:██:██:██:██:██:██:██:██:██:██:██:██:██:██:██

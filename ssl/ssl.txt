@@ -1,0 +1,47 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            29:77:57:46:23:8c:c9:34:a1:8f:19:9d:09:06:db:7e:82:02:2e:c6
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=US, ST=California, L=San Francisco, O=CloudFlare, Inc., OU=CloudFlare Origin SSL ECC Certificate Authority
+        Validity
+            Not Before: Jan 21 09:22:00 2026 GMT
+            Not After : Jan 21 09:22:00 2027 GMT
+        Subject: O=CloudFlare, Inc., OU=CloudFlare Origin CA, CN=CloudFlare Origin Certificate
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:99:0c:ce:88:b9:be:30:7f:fe:6c:1e:de:4e:eb:
+                    fa:8b:81:c0:b6:f3:27:7f:46:c8:3e:82:33:ec:ce:
+                    09:f3:ac:59:ed:82:8a:78:49:5c:24:e7:98:21:a8:
+                    ea:c0:ab:06:9b:4b:ed:b8:d2:5d:ac:9f:69:c3:8b:
+                    d8:79:2c:e2:f6
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Extended Key Usage:
+                TLS Web Client Authentication, TLS Web Server Authentication
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                76:B7:E9:1B:81:0B:AA:B7:3E:68:00:57:B1:19:89:7F:46:3C:83:A2
+            X509v3 Authority Key Identifier:
+                85:30:5D:3B:2A:70:D4:ED:D5:92:67:07:FD:EB:39:B4:1A:0E:38:A7
+            Authority Information Access:
+                OCSP - URI:http://ocsp.cloudflare.com/origin_ecc_ca
+            X509v3 Subject Alternative Name:
+                DNS:phash.kolloquy.com
+            X509v3 CRL Distribution Points:
+                Full Name:
+                  URI:http://crl.cloudflare.com/origin_ecc_ca.crl
+
+    Signature Algorithm: ecdsa-with-SHA256
+    Signature Value:
+        30:45:02:21:00:b2:df:37:1a:b6:bc:77:fb:c5:88:63:92:97:
+        ff:0f:da:23:f5:97:f4:a1:6a:57:ba:df:14:ce:e1:51:b7:f3:
+        36:02:20:3b:4d:ac:2a:4a:d7:3f:9d:35:78:83:bb:dc:a1:4f:
+        2c:17:71:75:06:47:c5:d6:fa:e5:a3:c9:eb:87:17:93:6e

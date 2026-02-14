@@ -2,6 +2,7 @@
 .idea
 ._*
 Cargo.lock
-ssl
+ssl/*.crt
+ssl/*.pem
 target
 cow.ltd.
