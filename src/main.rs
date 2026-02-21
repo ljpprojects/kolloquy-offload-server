@@ -93,16 +93,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     stdin().read_exact(&mut *secret)?;
 
-    // Modifications after this point would be very problematic, so combine Arc (which is Deref only)
-    // and memory protections
-
-    unsafe {
-        let page = region::query(secret.as_ptr()).unwrap();
-
-        region::protect(page.as_ptr::<()>(), page.len(), Protection::READ)
-            .unwrap();
-    }
-
     let argon_secret = unsafe {
         // Try not to allocate more memory that must also be mlock'ed
         Arc::<[u8]>::from_raw(&raw const **secret)
