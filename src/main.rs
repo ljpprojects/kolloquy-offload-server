@@ -97,7 +97,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
     // and memory protections
 
     unsafe {
-        region::protect(secret.as_ptr(), secret.capacity(), Protection::READ)
+        let page = region::query(secret.as_ptr()).unwrap();
+
+        region::protect(page.as_ptr::<()>(), page.len(), Protection::READ)
             .unwrap();
     }
 
