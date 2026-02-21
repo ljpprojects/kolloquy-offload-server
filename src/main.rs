@@ -1,14 +1,15 @@
 use std::{env, error::Error, io::{Read, stdin}, sync::Arc, time::Duration};
-
+use std::mem::ManuallyDrop;
 use axum::{Json, Router, extract::State, http::Request, response::Response, routing::post};
 use base64::{Engine, prelude::BASE64_STANDARD};
+use region::Protection;
 use serde::Deserialize;
 use tokio::net::TcpListener;
 use tower_http::trace::TraceLayer;
 use tracing::{Span, info};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
-use crate::{hash::stage_2_digest, state::ServerState};
+use crate::{hash::stage_2_phc, state::ServerState};
 
 mod hash;
 mod state;
@@ -27,11 +28,9 @@ async fn phash(
     let stage_1_digest: [u8; 32] = stage_1_digest.try_into().unwrap();
 
     let salt = BASE64_STANDARD.decode(payload.salt).unwrap();
-    let salt: [u8; 32] = salt.try_into().unwrap();
+    let salt: [u8; 32] = salt.try_into().unwrap(); // Now's your chance to be a [[BIG SALT]]
 
-    let stage_2 = stage_2_digest(stage_1_digest, salt, state);
-
-    BASE64_STANDARD.encode(stage_2)
+    stage_2_phc(stage_1_digest, salt, state)
 }
 
 fn router(argon_secret: Arc<[u8]>) -> Router {
@@ -42,7 +41,7 @@ fn router(argon_secret: Arc<[u8]>) -> Router {
         }))
         .layer(
             TraceLayer::new_for_http()
-                .make_span_with(|request: &axum::http::Request<_>| {
+                .make_span_with(|request: &Request<_>| {
                     tracing::info_span!(
                         "http_request",
                         method = %request.method(),
@@ -87,16 +86,24 @@ async fn main() -> Result<(), Box<dyn Error>> {
     // Read secret from stdin (length should be of that defined in SECRET_LENGTH)
     let secret_len: usize = env::var("SECRET_LENGTH").unwrap().parse().unwrap();
 
-    let mut secret = Vec::<u8>::with_capacity(secret_len);
+    // DontDrop
+    let mut secret = ManuallyDrop::new(Vec::<u8>::with_capacity(secret_len));
+    let _guard = region::lock(secret.as_ptr(), secret.capacity())?;
     secret.resize(secret_len, 0);
 
     stdin().read_exact(&mut *secret)?;
 
-    let _guard = region::lock(secret.as_ptr(), secret.capacity())?;
+    // Modifications after this point would be very problematic, so combine Arc (which is Deref only)
+    // and memory protections
+
+    unsafe {
+        region::protect(secret.as_ptr(), secret.capacity(), Protection::READ)
+            .unwrap();
+    }
 
     let argon_secret = unsafe {
         // Try not to allocate more memory that must also be mlock'ed
-        Arc::<[u8]>::from_raw(&raw const *secret)
+        Arc::<[u8]>::from_raw(&raw const **secret)
     };
 
     // ---.-SE.-XS.-EX:SEXX

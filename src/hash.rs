@@ -2,7 +2,7 @@ use std::{env, sync::Arc};
 
 use argon2::{Algorithm, Argon2, AssociatedData, ParamsBuilder, PasswordHash, PasswordHasher, Version};
 use base64::{Engine, prelude::BASE64_STANDARD};
-use tokio::time::Instant;
+use std::time::Instant;
 use tracing::info;
 use zeroize::Zeroize;
 use crate::state::ServerState;
@@ -21,12 +21,12 @@ pub const HASH_LEN: usize = 48;
 /// Stage 1 is the computation of a SHA256 hash (on the Cloudflare Worker) with
 /// a per-user salt (32b), and 2 global peppers (32b each, one in .env, one in 
 /// Secrets Store).
-pub fn stage_2_digest(stage_1_digest: [u8; 32], salt: [u8; 32], state: Arc<ServerState>) -> String {
+pub fn stage_2_phc(stage_1_digest: [u8; 32], salt: [u8; 32], state: Arc<ServerState>) -> String {
     let pepper = env::var("ARGON_PEPPER").unwrap();
     let mut pepper = BASE64_STANDARD.decode(pepper).unwrap();
 
     // The external secret with pepper appended to it
-    let mut secret = [&*state.argon_secret, &*pepper].concat();
+    let mut secret = [&state.argon_secret, &*pepper].concat();
 
     let algorithm = Algorithm::Argon2id;
     let version = Version::V0x13;
@@ -39,7 +39,7 @@ pub fn stage_2_digest(stage_1_digest: [u8; 32], salt: [u8; 32], state: Arc<Serve
         .build()
         .unwrap();
 
-    let ctx = Argon2::new_with_secret(&*secret, algorithm, version, params).unwrap();
+    let ctx = Argon2::new_with_secret(&secret, algorithm, version, params).unwrap();
     let start = Instant::now();
 
     let phc =

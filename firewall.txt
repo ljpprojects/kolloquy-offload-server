@@ -3,11 +3,26 @@
 TO               ACTION       FROM
 --               ------       ----
 22/tcp           ALLOW IN     $LAN_IPS         # Ideally you should only be able to access the server from LAN
-443/tcp          ALLOW IN     $PROXY_IP        # Use a proxy which you trust (it will handle traffic from the whole internet)
+443/tcp          ALLOW IN     ANYWHERE         # You could also use a proxy you trust
+443/tcp          ALLOW IN     ANYWHERE (v6)
 ANYWHERE         ALLOW OUT    ANYWHERE         # There is no point in restricting egress
 ANYWHERE (v6)    ALLOW OUT    ANYWHERE (v6)    # Make sure we don't accidentally restrict egress to IPv6 addresses
 
---- EXAMPLE VARIABLES ---
+--- EXAMPLE VARIABLES (WITHOUT proxy) ---
+
+$LAN_IPS = 192.168.0.0/24
+
+Therefore, the configuration would look something like this:
+
+TO               ACTION       FROM
+--               ------       ----
+22/tcp           ALLOW IN     192.168.0.0/24
+443/tcp          ALLOW IN     ANYWHERE
+443/tcp          ALLOW IN     ANYWHERE (v6)
+ANYWHERE         ALLOW OUT    ANYWHERE
+ANYWHERE (v6)    ALLOW OUT    ANYWHERE (v6)
+
+--- EXAMPLE VARIABLES (WITH proxy) ---
 
 $LAN_IPS = 192.168.0.0/24
 $PROXY_IP = 149.138.95.172

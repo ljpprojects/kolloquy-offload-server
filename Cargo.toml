@@ -11,8 +11,8 @@ codegen-units = 1
 panic = "abort"
 
 [dependencies]
-argon2 = "0.6.0-rc.7"
-axum = { version = "0.8.8", features = ["http2", "tracing"] }
+argon2 = { version = "0.6.0-rc.7", features = ["zeroize"] }
+axum = { version = "0.8.8", features = ["http2", "tracing", "tokio"] }
 base64 = "0.22.1"
 dotenv = "0.15.0"
 region = "3.0.2"

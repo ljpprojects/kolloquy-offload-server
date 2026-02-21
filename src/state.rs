@@ -6,5 +6,7 @@ pub struct ServerState {
     /// It should be sourced from an external host, ideally only accessible with
     /// public-key auth and a passphrase. If the server is self-hosted the
     /// external host should be accessible from the LAN of the server only.
+    /// 
+    /// MAKE SURE TO NMAP THIS!!!!!!!!
     pub argon_secret: Arc<[u8]>,
 }
